@@ -11,8 +11,7 @@ pipeline {
                     string(credentialsId: "dev.password", variable: 'password')
                 ]) 
                 {
-                    echo user
-                    // String config = readFile "conf/bdd.conf"
+                    String config = readFile "conf/bdd.conf"
                     // def result = new groovy.json.JsonSlurperClassic().parseText(config)
                     // result.user = user
                     // result.database = db
