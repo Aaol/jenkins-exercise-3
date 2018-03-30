@@ -22,9 +22,8 @@ pipeline {
                     string(credentialsId: params.env + ".user", variable: 'user'), 
                     string(credentialsId: params.env + ".db", variable: 'db'), 
                     string(credentialsId: params.env + ".password", variable: 'password')
-                ]) {
-                
-
+                ]) 
+                {
                     String config = readFile "conf/bdd.conf"
                     def result = new groovy.json.JsonSlurperClassic().parseText(config)
                     result.user = user
