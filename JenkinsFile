@@ -5,22 +5,23 @@ pipeline {
         {
             steps()
             {
-                node(){
                     withCredentials([
                         string(credentialsId: "dev.user", variable: 'user'), 
                         string(credentialsId: "dev.db", variable: 'db'), 
                         string(credentialsId: "dev.password", variable: 'password')
                     ]) 
                     {
-                        String config = readFile "conf/bdd.conf"
-                        Object result = new groovy.json.JsonSlurperClassic().parseText(config)
-                        // result.user = user
-                        // result.database = db
-                        // result.password = password
-                        // def json = groovy.json.JsonOutput.toJson(result)
-                        // writeFile file: "conf/bdd.conf", text: json
+                        script()
+                        {
+                            String config = readFile "conf/bdd.conf"
+                            def result = new groovy.json.JsonSlurperClassic().parseText(config)
+                            result.user = user
+                            result.database = db
+                            result.password = password
+                            def json = groovy.json.JsonOutput.toJson(result)
+                            writeFile file: "conf/bdd.conf", text: json
+                        }
                     }
-                }
             }
         }
         stage("saveconf")
